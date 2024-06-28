@@ -2,7 +2,13 @@
 // https://orm.drizzle.team/docs/sql-schema-declaration
 
 import { sql } from "drizzle-orm";
-import { index, int, sqliteTableCreator, text } from "drizzle-orm/sqlite-core";
+import {
+  index,
+  int,
+  integer,
+  sqliteTableCreator,
+  text,
+} from "drizzle-orm/sqlite-core";
 
 /**
  * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
@@ -10,7 +16,9 @@ import { index, int, sqliteTableCreator, text } from "drizzle-orm/sqlite-core";
  *
  * @see https://orm.drizzle.team/docs/goodies#multi-project-schema
  */
-export const createTable = sqliteTableCreator((name) => `engineer-manager_${name}`);
+export const createTable = sqliteTableCreator(
+  (name) => `engineer-manager_${name}`,
+);
 
 export const posts = createTable(
   "post",
@@ -24,5 +32,20 @@ export const posts = createTable(
   },
   (example) => ({
     nameIndex: index("name_idx").on(example.name),
-  })
+  }),
 );
+
+export const userTable = createTable("user", {
+  id: text("id").notNull().primaryKey(),
+  name: text("name").notNull(),
+  username: text("username").notNull().unique(),
+  password_hash: text("password_hash").notNull(),
+});
+
+export const sessionTable = createTable("session", {
+  id: text("id").notNull().primaryKey(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => userTable.id),
+  expiresAt: integer("expires_at").notNull(),
+});
