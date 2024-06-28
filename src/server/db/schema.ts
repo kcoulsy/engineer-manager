@@ -49,3 +49,15 @@ export const sessionTable = createTable("session", {
     .references(() => userTable.id),
   expiresAt: integer("expires_at").notNull(),
 });
+
+export const reportTable = createTable("report", {
+  id: int("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
+  userId: text("user_id")
+    .notNull()
+    .references(() => userTable.id),
+  name: text("name").notNull(),
+  createdAt: int("created_at", { mode: "timestamp" })
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  updatedAt: integer("updated_at"),
+});

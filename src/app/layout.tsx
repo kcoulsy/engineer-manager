@@ -1,10 +1,11 @@
 import "~/styles/globals.css";
 
-import { Inter } from "next/font/google";
+import { Poppins } from "next/font/google";
+import type { PropsWithChildren } from "react";
 
-const inter = Inter({
+const poppins = Poppins({
+  weight: "500",
   subsets: ["latin"],
-  variable: "--font-sans",
 });
 
 export const metadata = {
@@ -13,14 +14,10 @@ export const metadata = {
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: Readonly<PropsWithChildren>) {
   return (
     <html lang="en">
-      <body className={`font-sans ${inter.variable}`}>{children}</body>
+      <body className={`font-sans ${poppins.className}`}>{children}</body>
     </html>
   );
 }

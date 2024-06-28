@@ -8,7 +8,8 @@ export const routes = {
   profile: "/profile",
   settings: "/settings",
   users: "/users",
-  user: "/users/:id",
+  userCreate: "/user/create",
+  user: (id: string | number) => `/user/${id}`,
   notFound: "/404",
   error: "/500",
 };
