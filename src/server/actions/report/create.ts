@@ -1,10 +1,8 @@
 "use server";
 
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { routes } from "~/app/constants/routes";
-import { lucia } from "~/server/auth/lucia";
 import { validateRequest } from "~/server/auth/validate";
 import { db } from "~/server/db";
 import { reportTable } from "~/server/db/schema";
