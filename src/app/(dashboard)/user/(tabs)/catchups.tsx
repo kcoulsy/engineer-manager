@@ -8,7 +8,7 @@ interface CatchupsProps {
 export async function Catchups({ report }: CatchupsProps) {
   return (
     <div>
-      <AddCatchupButton />
+      <AddCatchupButton report={report} />
     </div>
   );
 }
