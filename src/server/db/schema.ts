@@ -42,6 +42,8 @@ export const userTable = createTable("user", {
   password_hash: text("password_hash").notNull(),
 });
 
+export type User = typeof userTable.$inferSelect;
+
 export const sessionTable = createTable("session", {
   id: text("id").notNull().primaryKey(),
   userId: text("user_id")
@@ -56,6 +58,23 @@ export const reportTable = createTable("report", {
     .notNull()
     .references(() => userTable.id),
   name: text("name").notNull(),
+  createdAt: int("created_at", { mode: "timestamp" })
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  updatedAt: integer("updated_at"),
+});
+
+export type Report = typeof reportTable.$inferSelect;
+
+export const catchupTable = createTable("catchup", {
+  id: int("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
+  userId: text("user_id")
+    .notNull()
+    .references(() => userTable.id),
+  reportId: int("report_id", { mode: "number" })
+    .notNull()
+    .references(() => reportTable.id),
+  content: text("content"),
   createdAt: int("created_at", { mode: "timestamp" })
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),

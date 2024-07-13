@@ -3,6 +3,7 @@ import { validateRequest } from "~/server/auth/validate";
 import { db } from "~/server/db";
 import { reportTable } from "~/server/db/schema";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
+import { Catchups } from "../(tabs)/catchups";
 
 export default async function UserPage({
   params,
@@ -40,7 +41,7 @@ export default async function UserPage({
           Overview of the report
         </TabsContent>
         <TabsContent className="p-1" value="catchups">
-          Catchup notes here
+          <Catchups report={foundUser} />
         </TabsContent>
         <TabsContent className="p-1" value="goals">
           Goal setting here
